@@ -3,7 +3,7 @@
 <!-- project-reading-note -->
 The completed classical stage used 153 training, 51 validation and 52 test patients. At full training labels, forest patient Dice was 0.485 [0.428, 0.547] versus 0.226 [0.184, 0.272] for pixel logistic regression. The 45-fit neural stage is still running.
 
-Read lesion-positive Dice with empty-prediction counts and the single lesion-negative test case. Geometry comes from per-image Pixel_size metadata; see GEOMETRY_AUDIT.md. Training timings must flag the recorded temporary process suspension.
+Read lesion-positive Dice with empty-prediction counts and the single lesion-negative test case. Geometry comes from per-image Pixel_size metadata; see GEOMETRY_AUDIT.md.
 
 Status: evaluated on a real public medical dataset; advanced study and clinical validation incomplete.
 

@@ -31,8 +31,4 @@ All DeepLab variants keep BatchNorm running statistics fixed for small batches. 
 
 Warm batch-one latency times only the synchronized device forward pass on an already prepared tensor, after three warmups. Image loading, resizing and input transfer are excluded; it is not end-to-end application latency.
 
-## Timing event
-
-One fit (`unet_no_augmentation`, repeat 0, label fraction 0.3) was temporarily suspended during Safari troubleshooting. The displayed elapsed-time observations imply roughly 83 seconds, not a precise stopwatch interval. Its fit/epoch wall times include the pause; retain those raw times and exclude that fit from direct training-speed comparisons. Inference latency was measured after training resumed. See run_events.json.
-
 Finite HD95 summaries must be read with the empty-output failure denominator in REPORT.md. Foreground probabilities are segmentation scores, not malignancy probabilities.

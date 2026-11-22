@@ -1,52 +1,96 @@
-# Reproduction and inspection notes
+# Install and run the project
 
-## Start with the saved experiment
+To read the results, start with the [README](README.md). To run the code, download the repository using **Code → Download ZIP** on GitHub and extract it, or clone it with Git. Open a terminal in the folder that contains `README.md` and `requirements.lock`.
 
-Read README.md, then results/neural/REPORT.md and ANALYSIS.md. The raw CSV contains 2,340 neural patient/fit observations; results/pilot/metrics.csv contains 936 classical observations. fits.json records the 45 neural fits, selected epochs, validation thresholds, parameters and checkpoint hashes. training_history.csv preserves every epoch’s loss, validation Dice and duration.
+Use 64-bit Python 3.12. The first full run downloads the public BrEaST scans (about 70 MB) and their metadata. Neural training also downloads model weights and writes checkpoints, so leave several GB free. The published neural run used an Apple M1 with 8 GB of memory. Only the neural models use PyTorch.
 
-For a direct code walk-through:
+## Windows
 
-1. study/experiment.py verifies/downloads BrEaST, reads the four permitted metadata fields, resizes images/masks and creates the patient split.
-2. study/networks.py defines the compact U-Net, binary DeepLab wrapper and combined loss.
-3. study/neural.py creates the nested label budgets, fits each variant and selects checkpoints/thresholds on validation patients only.
-4. study/clinical.py computes spacing-aware overlap/boundary/area measures and patient-level intervals.
-5. scripts/summarize_neural.py reads completed measurements for descriptive paired comparisons and the overview figure.
+Use a 64-bit Windows PC with the [Python 3.12 installer](https://www.python.org/downloads/windows/) and the Python launcher. Open PowerShell in the project folder. These commands call the environment’s Python directly, so PowerShell does not need to run an activation script.
 
-## Environment and data
+```powershell
+py -3.12 -m venv .venv
+$python = ".\.venv\Scripts\python.exe"
+$env:PYTHONUTF8 = "1"
+& $python -m pip install -r requirements.lock
+& $python -m pytest -q
+& $python -m study --config configs/pilot.json --output results/my-classical-run
+```
 
-Follow the README commands from this repository root. Use the Python 3.12 pinned base requirements for classical evaluation. Neural training additionally needs the recorded PyTorch/torchvision versions; requirements-neural.lock records the Apple Silicon environment, while the hosted neural unit job uses official Linux CPU wheels. Run pytest after installing the relevant environment: six base checks, nine with PyTorch available.
+For U-Net and DeepLab on the CPU, run these in the same PowerShell window:
 
-Dataset downloads remain under ignored data/. The image archive is capped at 80 MiB and the metadata at 1 MiB; checksum mismatch or incomplete ZIPs stop evaluation. Do not substitute a partial-download hash. DATA.md gives exact sources, licensing and checksums. Model initialization weights and locally retained trained checkpoints also remain in data/.
+```powershell
+& $python -m pip install torch==2.15.0 torchvision==0.29.2 --index-url https://download.pytorch.org/whl/cpu
+& $python -m study.neural --probe --output results/my-device-check
+& $python -m study.neural --config configs/neural.json --output results/my-neural-run
+```
 
-Use fresh output directories for reproduction. Neural execution selects MPS when available and otherwise CPU. The current runner always uses its documented fixed split and configured seed schedule; changing those creates a new experiment, not a reproduction of the saved one. Do not tune parameters against the published test scores.
+## macOS
 
-## Regenerate charts without training
-
-From saved CSV/JSON results, install requirements-plots.txt and run:
+Install [Python 3.12 for macOS](https://www.python.org/downloads/macos/). Open Terminal in the project folder. The classical models use the CPU. On Apple Silicon, PyTorch uses the Mac GPU through Metal when available.
 
 ```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.lock
+python -m pytest -q
+python -m study --config configs/pilot.json --output results/my-classical-run
+```
+
+For the neural models on Apple Silicon, use the versions from the recorded Mac run:
+
+```bash
+python -m pip install -r requirements-neural.lock
+python -m study.neural --probe --output results/my-device-check
+python -m study.neural --config configs/neural.json --output results/my-neural-run
+```
+
+The Mac neural environment was tested on Apple Silicon. Intel Mac users can run the classical study if the pinned packages are available for their system.
+
+## Linux
+
+Use Python 3.12 with the `venv` module. On Ubuntu 24.04, install both with the following command. On another Linux distribution, use its package manager to install Python 3.12 and its virtual environment support.
+
+```bash
+sudo apt install python3.12 python3.12-venv
+```
+
+In the project folder:
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.lock
+python -m pytest -q
+python -m study --config configs/pilot.json --output results/my-classical-run
+```
+
+For the neural models on 64-bit x86 Linux, use the CPU wheels:
+
+```bash
+python -m pip install torch==2.15.0 torchvision==0.29.2 --index-url https://download.pytorch.org/whl/cpu
+python -m study.neural --probe --output results/my-device-check
+python -m study.neural --config configs/neural.json --output results/my-neural-run
+```
+
+## Find your results
+
+Open `REPORT.md` in the output folder you chose. The table summarizes the models. The accompanying `metrics.csv` contains one row per test patient for each fitted model. The device check uses generated inputs to test PyTorch and does not train a model.
+
+The program checks the downloaded files before reading the scans. It keeps the data and model weights in `data/`. Use a different results folder for each new run. The fitted checkpoints in `data/neural-models/` use fixed names. Copy that folder before training again if you want to keep your previous weights.
+
+## Make the figures
+
+From the repository root, use the Python environment created above. On Windows, use `& $python` in place of `python` in the commands below.
+
+```bash
+python -m pip install -r requirements-plots.txt
 python scripts/plot_results.py
 python scripts/summarize_neural.py
 ```
 
-The first command plots classical label-budget results. The second requires all 45 completed neural fit records and produces the neural overview, paired differences and mask-negative check. Input/script hashes accompany the outputs.
+These commands rebuild the results charts from the published measurements. To rebuild the architecture diagrams alone, run `python scripts/draw_architecture.py`.
 
-The richer QC/architecture/example figures are generated by:
+The command `python scripts/build_review_figures.py` also rebuilds the scan examples. It requires the neural environment, source images and the three matching trained checkpoints. It checks the checkpoint hashes against the recorded run before drawing any predictions. The published examples are ready to view without downloading those files.
 
-```bash
-python scripts/build_review_figures.py
-```
-
-This verifies the source data and replays three preserved seed-zero/full-label checkpoints. It does not train or tune. Reproducing these model examples requires the corresponding locally retained or reproduced checkpoints; they are intentionally excluded from the repository. The committed figures and figures/evidence.json retain case-selection rules, checkpoint hashes and replay checks.
-
-## Read the difficult cases correctly
-
-The examples include a median U-Net outcome, a lowest-score frozen-backbone outcome and the sole mask-negative test case. Their post-run selection is for explanation, not an estimate of prevalence. Green contours are tumor references; rose overlays are predictions. Source images are resized/overlaid CC BY 4.0 derivatives attributed in DATA.md.
-
-A small finite HD95 can coexist with many empty masks if failed distances are omitted from that finite median. Read the failure count and denominator first. Similarly, the single negative case cannot justify a specificity claim. Foreground scores are not diagnostic probabilities.
-
-Geometry is supplied by the workbook’s Pixel_size field. Native spacing is in centimeters; resizing scales each axis, then the conversion to millimeters is applied. HD95 uses those spacings, while two-dimensional area error uses their product. GEOMETRY_AUDIT.md gives the actual checks and example.
-
-## Compute interpretation
-
-The saved neural run used an M1/8 GiB machine. Warm synchronized forward-pass latency excludes loading, resizing and input transfer. Sampled MPS memory is not a peak-memory guarantee. A temporary pause affects one no-augmentation fit’s wall time; retain it and consult run_events.json rather than silently subtracting an approximate duration.
+[Data and licenses](DATA.md) · [Model training settings](NEURAL_PROTOCOL.md) · [Checks on the published results](VALIDATION.md)

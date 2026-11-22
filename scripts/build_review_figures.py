@@ -9,7 +9,7 @@ import torch
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch,FancyArrowPatch
+from draw_architecture import diagrams
 from study.experiment import load_dataset,split_cases
 from study.networks import CompactUNet,BinaryDeepLab
 from study.neural import predict
@@ -27,44 +27,6 @@ def save(fig,name,footnote):
  fig.tight_layout(rect=[0,.05,1,.95]);fig.savefig(OUT/(name+'.png'),dpi=190);fig.savefig(OUT/(name+'.svg'));plt.close(fig)
 
 
-def box(ax,xy,text,width=.14,height=.17,color='#e7f1f6',fontsize=10):
- x,y=xy;ax.add_patch(FancyBboxPatch((x-width/2,y-height/2),width,height,boxstyle='round,pad=0.012',facecolor=color,edgecolor='#537287',lw=1.2))
- ax.text(x,y,text,ha='center',va='center',fontsize=fontsize)
-
-
-def arrow(ax,start,end,dashed=False,color='#546c7e'):
- ax.add_patch(FancyArrowPatch(start,end,arrowstyle='-|>',mutation_scale=12,lw=1.2,linestyle='--' if dashed else '-',color=color))
-
-
-def diagrams():
- fig,ax=plt.subplots(figsize=(14,6));ax.set(xlim=(0,1),ylim=(0,1));ax.axis('off')
- box(ax,(.12,.52),'256 BrEaST patients\nImages + tumor masks\nCase ID + pixel size',.19,.23)
- box(ax,(.40,.78),'153 training patients\n16 / 46 / 153 labels\n3 fitting seeds',.23,.22)
- box(ax,(.40,.45),'51 validation patients\nCheckpoint at Dice @ 0.5\nThreshold from fixed grid',.23,.22,'#fff1dc')
- box(ax,(.72,.78),'2 classical references\n5 neural variants\n18 + 45 fitted models',.23,.22)
- box(ax,(.72,.40),'Frozen fitted models\n52 held-out test patients\n51 lesion-positive + 1 negative',.25,.22,'#e0f3eb')
- box(ax,(.72,.10),'Patient Dice + bootstrap\nPhysical boundaries + area\nEmpty masks + measured latency',.25,.16)
- arrow(ax,(.22,.59),(.27,.78));arrow(ax,(.22,.51),(.27,.45));arrow(ax,(.52,.78),(.59,.78));arrow(ax,(.72,.66),(.72,.52))
- arrow(ax,(.53,.45),(.58,.41));arrow(ax,(.72,.28),(.72,.20));ax.text(.57,.59,'No test-based selection',ha='center',fontsize=10,color='#9c4c10')
- fig.suptitle('Study flow: patient separation before model fitting',fontsize=16)
- save(fig,'study_flow','All budgets use fully annotated validation patients. The same fixed test patients are reused across fitting seeds; bootstrap units are patients.')
- fig,axes=plt.subplots(2,1,figsize=(16,7),gridspec_kw={'height_ratios':[1.8,1]})
- ax=axes[0];ax.set(xlim=(0,1),ylim=(0,1));ax.axis('off');ax.set_title('Compact U-Net · 487,713 trainable parameters',fontsize=13)
- nodes=[(.08,.78,'128×128×16'),(.21,.55,'64×64×32'),(.34,.32,'32×32×64'),(.47,.10,'16×16×128'),(.60,.32,'32×32×64'),(.73,.55,'64×64×32'),(.86,.78,'128×128×16')]
- for x,y,t in nodes:box(ax,(x,y),t,.115,.14,fontsize=9)
- for a,b in zip(nodes,nodes[1:]):arrow(ax,(a[0]+.045,a[1]-.035),(b[0]-.045,b[1]+.035))
- for a,b in [(nodes[0],nodes[-1]),(nodes[1],nodes[-2]),(nodes[2],nodes[-3])]:arrow(ax,(a[0]+.065,a[1]),(b[0]-.065,b[1]),True,'#008572')
- ax.text(.08,.97,'1-channel input',ha='center',fontsize=9);ax.text(.86,.97,'1×1 head → 1 logit',ha='center',fontsize=9)
- ax.text(.48,.97,'Down: 2× max pool  |  Up: bilinear resize + skip concatenation',ha='center',fontsize=10)
- ax.text(.03,-.10,'Each block: two 3×3 convolutions, GroupNorm (4 groups), ReLU. Skip concatenations have 192 / 96 / 48 channels.',fontsize=9)
- ax=axes[1];ax.set(xlim=(0,1),ylim=(0,1));ax.axis('off');ax.set_title('Binary DeepLabV3–MobileNetV3 · 11,020,337 total parameters',fontsize=13,pad=12)
- labels=['Gray 128×128\nrepeat to RGB\nImageNet normalize','MobileNetV3\nbackbone\n960×8×8','ASPP: 1×1, rates\n12 / 24 / 36, pool\nproject to 256×8×8','3×3 conv + BN\nReLU + 1×1 head\n1×8×8 logit','Bilinear upsample\n128×128 sigmoid\nvalidation threshold']
- for i,t in enumerate(labels):
-  x=.1+i*.2;box(ax,(x,.45),t,.165,.54,fontsize=9)
-  if i:arrow(ax,(x-.115,.45),(x-.09,.45))
- save(fig,'model_architectures','Shapes omit batch dimension and were checked with a 128×128 forward pass. DeepLab BatchNorm running statistics are fixed; its frozen-backbone variant still trains the ASPP/head (8,048,385 parameters).')
-
-
 def main():
  torch.set_num_threads(2);cases=load_dataset(128);train,val,test,_=split_cases(cases,20261122)
  with Path('results/neural/metrics.csv').open() as f:rows=list(csv.DictReader(f))
@@ -73,6 +35,7 @@ def main():
  for path in ['results/neural/metrics.csv','results/neural/fits.json','results/neural/summary.json','results/pilot/data_manifest.json']:
   EVIDENCE['inputs'][path]=hashlib.sha256(Path(path).read_bytes()).hexdigest()
  diagrams()
+ EVIDENCE['inputs']['scripts/draw_architecture.py']=hashlib.sha256(Path('scripts/draw_architecture.py').read_bytes()).hexdigest()
  fig,axes=plt.subplots(2,2,figsize=(12,8));split_groups=[('Train',train),('Validation',val),('Test',test)];pos=[];neg=[]
  for name,ids in split_groups:pos.append(sum(cases[i]['has_native_lesion'] for i in ids));neg.append(sum(not cases[i]['has_native_lesion'] for i in ids))
  x=np.arange(3);axes[0,0].bar(x,pos,color='#146c94',label='Lesion reference');axes[0,0].bar(x,neg,bottom=pos,color='#db9f45',label='No tumor mask')
@@ -85,13 +48,13 @@ def main():
  axes[1,0].set(xlabel='Reference lesion fraction at 128×128 (%)',ylabel='Patients',title='Lesion-positive masks');axes[1,0].legend(fontsize=8)
  spacing=np.array([c['spacing_mm'] for c in cases]);axes[1,1].scatter(spacing[:,1],spacing[:,0],s=13,alpha=.5,color='#008572');axes[1,1].plot([0,.75],[0,.75],'--',color='#94a3b8',lw=1)
  axes[1,1].set(xlabel='Resized x spacing, mm/pixel',ylabel='Resized y spacing, mm/pixel',title='Axis-specific physical spacing after square resize')
- fig.suptitle('Input quality control · all 256 verified BrEaST cases',fontsize=16)
+ fig.suptitle('The 256 ultrasound scans',fontsize=16)
  save(fig,'cohort_qc','4 cases have no tumor mask. A negative frame is not a population specificity study. Physical spacing is read from the publisher’s Pixel_size field, not PNG DPI.')
  fig,axes=plt.subplots(1,2,figsize=(13,5));methods=list(NAMES);fractions=[.1,.3,1.];width=.24
  for k,fraction in enumerate(fractions):
   s=[next(s for s in summary if s['method']==m and s['label_fraction']==fraction) for m in methods]
   axes[0].bar(np.arange(5)+(k-1)*width,[r['empty_prediction_failures'] for r in s],width,label=f'{fraction:.0%} training labels',color=COLORS[k])
- axes[0].set(xticks=range(5),xticklabels=['U-Net','U-Net\nno aug.','DeepLab\nscratch','DeepLab\nfrozen','DeepLab\nfine-tuned'],ylabel='Empty predictions / 153 lesion-positive fit-cases',title='Failures excluded from finite HD95 summaries');axes[0].legend(fontsize=8)
+ axes[0].set(xticks=range(5),xticklabels=['U-Net','U-Net\nno aug.','DeepLab\nscratch','DeepLab\nfrozen','DeepLab\nfine-tuned'],ylabel='Empty masks in 153 predictions',title='When the model returned an empty mask');axes[0].legend(fontsize=8)
  values=[]
  for method in methods:
   by_patient={}
@@ -101,8 +64,8 @@ def main():
  axes[1].boxplot(values,positions=range(1,6),showfliers=False,widths=.5)
  rng=np.random.default_rng(42)
  for i,v in enumerate(values):axes[1].scatter(i+1+rng.uniform(-.13,.13,len(v)),v,s=13,alpha=.5,color=COLORS[i])
- axes[1].set(xticks=range(1,6),xticklabels=['U-Net','U-Net\nno aug.','DeepLab\nscratch','DeepLab\nfrozen','DeepLab\nfine-tuned'],ylabel='Patient Dice, averaged over 3 fitting seeds',ylim=(-.02,1.02),title='Full-label outcomes: one dot per test patient')
- fig.suptitle('Failure analysis and patient-level spread',fontsize=16)
+ axes[1].set(xticks=range(1,6),xticklabels=['U-Net','U-Net\nno aug.','DeepLab\nscratch','DeepLab\nfrozen','DeepLab\nfine-tuned'],ylabel='Mean Dice across three training runs',ylim=(-.02,1.02),title='All training labels · one dot per patient')
+ fig.suptitle('Missed lesions and scores by patient',fontsize=16)
  save(fig,'failure_analysis','51 lesion-positive test patients × 3 fitting seeds = 153 outcomes per method/budget. Boxes show median and quartiles; points are patient means, not independent fitting repeats.')
  # Explicit post-run selection rules: median U-Net, lowest frozen-backbone outcome, one negative patient.
  def seed0(method):return [r for r in rows if r['method']==method and r['repeat']=='0' and float(r['label_fraction'])==1 and r['lesion_present']=='True']
@@ -139,7 +102,7 @@ def main():
     if case['mask'].any():ax.contour(case['mask'],levels=[.5],colors=['#00d9ae'],linewidths=1)
    if r==0:ax.set_title(titles[c],fontsize=11)
    if c==0:ax.set_ylabel(f'Case {case["case_id"]}\n{selection_labels[r]}',fontsize=9)
- fig.suptitle('Held-out examples · preserved seed-0 full-label checkpoints',fontsize=16)
+ fig.suptitle('Expert masks and predictions on test scans',fontsize=16)
  save(fig,'heldout_examples','Green: reference boundary. Rose: predicted foreground. Inputs are 128×128. Examples selected by stated descriptive rules; inference replay only. BrEaST (TCIA), CC BY 4.0, DOI 10.7937/9WKK-Q141; resized/overlaid.')
  EVIDENCE['matplotlib']=matplotlib.__version__;EVIDENCE['torch']=torch.__version__;EVIDENCE['data_attribution']='BrEaST / Pawłowska et al. (2024), TCIA DOI 10.7937/9WKK-Q141, CC BY 4.0; figures resize/overlay source inputs.'
  (OUT/'evidence.json').write_text(json.dumps(EVIDENCE,indent=2)+'\n')

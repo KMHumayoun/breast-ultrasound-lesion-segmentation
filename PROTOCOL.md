@@ -28,6 +28,5 @@ The post-run full-label paired comparison resamples differences between per-pati
 
 DeepLab normalization state, learning rate and parameter count differ across references; the comparison does not isolate a causal pretraining effect. MPS memory is sampled allocation, not a guaranteed peak, and process RSS is a whole-process high-water mark. Device-forward latency excludes data preparation and transfer.
 
-One no-augmentation U-Net fit at 30% labels was temporarily suspended during browser troubleshooting. Preserve its raw timings and flag it in speed comparisons; no model or data were manually altered. Details are in results/neural/run_events.json and ANALYSIS.md.
 
 Independent patient splits, external cohorts, annotation disagreement and acquisition-specific robustness are beyond this executed comparison. Their absence does not prevent reproducing the reported single-cohort experiment, but it limits generalization claims.

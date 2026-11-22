@@ -4,12 +4,20 @@ import hashlib
 import importlib.metadata
 import json
 import platform
-import resource
 import sys
 import time
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
+
+
+def peak_memory_bytes():
+    """Return the process peak in bytes when the operating system exposes it."""
+    if sys.platform == "win32":
+        return None
+    import resource
+    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    return peak if sys.platform == "darwin" else peak * 1024
 
 
 def photos(size=192, color=False):
@@ -44,7 +52,7 @@ def write_run(rows, config, out, start, limitations, status='evaluated_pilot'):
               'dependencies':{p:importlib.metadata.version(p) for p in ['numpy','scipy','scikit-image','pillow','scikit-learn','openpyxl']},
               'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(Path('study').glob('*.py'))},
               'wall_seconds':time.perf_counter()-start,
-              'peak_process_rss_bytes':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*(1 if sys.platform=='darwin' else 1024),
+              'peak_process_rss_bytes':peak_memory_bytes(),
               'memory_scope':'whole-process high-water mark, not method isolated', 'limitations':limitations}
     (out/'evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
     keys=list(rows[0]);lines=['# Executed experiment','',f'Status: {status}. Full advanced study remains incomplete.','',

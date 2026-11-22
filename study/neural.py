@@ -6,7 +6,6 @@ import hashlib
 import io
 import json
 import platform
-import resource
 import shutil
 import sys
 import time
@@ -17,7 +16,7 @@ import torchvision
 from .networks import make_model,freeze_batch_statistics,segmentation_loss
 from .experiment import load_dataset,split_cases,scientific_json
 from .clinical import segmentation_metrics,patient_ci
-from .core import panel
+from .core import panel, peak_memory_bytes
 
 
 def synchronize(device):
@@ -178,7 +177,7 @@ def run(cfg,out):
               'source_sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(Path('study').glob('*.py'))},
               'wall_seconds':time.perf_counter()-start,'pretrained_weight_provenance':weights,
               'split_manifest':'results/pilot/data_manifest.json; same 153/51/52 patients and root seed',
-              'peak_process_rss_bytes':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*(1 if sys.platform=='darwin' else 1024),
+              'peak_process_rss_bytes':peak_memory_bytes(),
               'limitations':['Research evaluation on one small public still-frame cohort, not clinical validation.',
                             'No external cohort or repeated patient split yet; test cases reused across fits.',
                             'Sampled MPS allocations are not instantaneous peak GPU memory; CPU RSS is whole-process high-water.',
