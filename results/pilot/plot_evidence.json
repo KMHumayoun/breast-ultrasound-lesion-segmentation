@@ -1,0 +1,6 @@
+{
+  "input_sha256": "ead1d39881c2d30660b7a12821b9a5e7f51ca1bb4b7f6bc60a3d86f180d25015",
+  "plot_script_sha256": "2637425d48f8584cd2defabf0a525d83bc78fe29c93b08543ca6e1cffb705cc6",
+  "matplotlib": "3.11.2",
+  "note": "Presentation derived from saved observations; no model fitting or test-based selection performed."
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "method": "unet_scratch",
+    "lesion_negative_test_patients": 1,
+    "mean_false_foreground_fraction": 0.02947998046875
+  },
+  {
+    "method": "unet_no_augmentation",
+    "lesion_negative_test_patients": 1,
+    "mean_false_foreground_fraction": 0.043599446614583336
+  },
+  {
+    "method": "deeplab_scratch",
+    "lesion_negative_test_patients": 1,
+    "mean_false_foreground_fraction": 0.08612060546875
+  },
+  {
+    "method": "deeplab_pretrained_frozen",
+    "lesion_negative_test_patients": 1,
+    "mean_false_foreground_fraction": 0.0106201171875
+  },
+  {
+    "method": "deeplab_pretrained_finetune",
+    "lesion_negative_test_patients": 1,
+    "mean_false_foreground_fraction": 0.010538736979166666
+  }
+]

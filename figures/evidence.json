@@ -1,0 +1,99 @@
+{
+  "status": "post-run descriptive figures; no training",
+  "source_script_sha256": "075294d842d2e763e6d2ca3ea1273e11a03baefcdf989b97165038f89e635c72",
+  "inputs": {
+    "results/neural/metrics.csv": "03d4f2abf8c34dd661c057aa54531e8be53d319b471926a67f648d4b5fcd5b1f",
+    "results/neural/fits.json": "195ee573152dbe23e6289afdd0d1b232538c91ca4aaa093e50acfbe963e0f4ee",
+    "results/neural/summary.json": "e6ad5f52c70b41422fb93cf0ca4d7a9bc3e0fcb02e6f049934ba6b650396a54e",
+    "results/pilot/data_manifest.json": "4d3e20fd358626942ef66b16954df763192b6d2adb58bf4997777a047c37b2d4"
+  },
+  "checkpoint_replay": [
+    {
+      "method": "unet_scratch",
+      "checkpoint_sha256": "4f5bc598b0936dc843ac9dd9fc103fd3eb85bc784019f3ed9c8567c776b3edd5",
+      "device": "mps",
+      "threshold": 0.65,
+      "checks": [
+        {
+          "public_case_id": 170,
+          "replayed_dice": 0.8099352051835853,
+          "saved_dice": 0.8099352051835853,
+          "absolute_difference": 0.0
+        },
+        {
+          "public_case_id": 10,
+          "replayed_dice": 0.8319327731092437,
+          "saved_dice": 0.8319327731092437,
+          "absolute_difference": 0.0
+        },
+        {
+          "public_case_id": 213,
+          "replayed_dice": 0.0,
+          "saved_dice": 0.0,
+          "absolute_difference": 0.0
+        }
+      ]
+    },
+    {
+      "method": "deeplab_pretrained_finetune",
+      "checkpoint_sha256": "ec9875b046925205c7eb7fc47bc977e2d26227f63012ba7e1b9dd0f7f01755fb",
+      "device": "mps",
+      "threshold": 0.35,
+      "checks": [
+        {
+          "public_case_id": 170,
+          "replayed_dice": 0.7649687220732797,
+          "saved_dice": 0.7649687220732797,
+          "absolute_difference": 0.0
+        },
+        {
+          "public_case_id": 10,
+          "replayed_dice": 0.7910295616717635,
+          "saved_dice": 0.7910295616717635,
+          "absolute_difference": 0.0
+        },
+        {
+          "public_case_id": 213,
+          "replayed_dice": 0.0,
+          "saved_dice": 0.0,
+          "absolute_difference": 0.0
+        }
+      ]
+    },
+    {
+      "method": "deeplab_pretrained_frozen",
+      "checkpoint_sha256": "431b1065df1545e9c19e887fd45511a56096a4e93a494e21b931151f4a0cc19f",
+      "device": "mps",
+      "threshold": 0.5,
+      "checks": [
+        {
+          "public_case_id": 170,
+          "replayed_dice": 0.5716180371352785,
+          "saved_dice": 0.5716180371352785,
+          "absolute_difference": 0.0
+        },
+        {
+          "public_case_id": 10,
+          "replayed_dice": 0.0,
+          "saved_dice": 0.0,
+          "absolute_difference": 0.0
+        },
+        {
+          "public_case_id": 213,
+          "replayed_dice": 0.0,
+          "saved_dice": 0.0,
+          "absolute_difference": 0.0
+        }
+      ]
+    }
+  ],
+  "example_selection": {
+    "median_unet_case": 170,
+    "lowest_frozen_case": 10,
+    "lesion_negative_case": 213,
+    "rule": "Post-run descriptive selection from seed0/full-label outcomes. Not used for fitting, tuning or headline metrics."
+  },
+  "matplotlib": "3.11.2",
+  "torch": "2.15.0",
+  "data_attribution": "BrEaST / Paw\u0142owska et al. (2024), TCIA DOI 10.7937/9WKK-Q141, CC BY 4.0; figures resize/overlay source inputs."
+}

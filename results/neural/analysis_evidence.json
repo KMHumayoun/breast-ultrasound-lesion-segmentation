@@ -1,0 +1,10 @@
+{
+  "script_sha256": "ba54a65ae2fe7dfe172fdd3bc110ce40032f66c103764622f7813b90bf6cbf9b",
+  "input_sha256": {
+    "results/neural/summary.json": "e6ad5f52c70b41422fb93cf0ca4d7a9bc3e0fcb02e6f049934ba6b650396a54e",
+    "results/neural/metrics.csv": "03d4f2abf8c34dd661c057aa54531e8be53d319b471926a67f648d4b5fcd5b1f",
+    "results/pilot/metrics.csv": "ead1d39881c2d30660b7a12821b9a5e7f51ca1bb4b7f6bc60a3d86f180d25015"
+  },
+  "analysis_status": "post_run_descriptive",
+  "figure_scope": "Patient-bootstrap intervals conditional on one fixed cohort/split; warm MPS inference times are measured, not hardware-neutral."
+}

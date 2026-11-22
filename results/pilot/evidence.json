@@ -1,0 +1,43 @@
+{
+  "status": "evaluated_public_medical_baseline_pilot",
+  "config": {
+    "seed": 20261122,
+    "size": 128,
+    "repeats": 3,
+    "label_fractions": [
+      0.1,
+      0.3,
+      1.0
+    ]
+  },
+  "python": "3.12.14 (main, Aug 12 2026, 13:57:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "platform": "macOS-26.6.1-arm64-arm-64bit",
+  "dependencies": {
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "scikit-image": "0.26.0",
+    "pillow": "13.0.0",
+    "scikit-learn": "1.9.1",
+    "openpyxl": "3.1.5"
+  },
+  "source_sha256": {
+    "study/__init__.py": "bd6b023d1214abcf31ab9c8c232fb9fc666a9125026359fcffe8a18b7d803100",
+    "study/__main__.py": "8e0f5d9f4878626edd0ee92c0b622a30d99972bf82f387125efa7bb55514a838",
+    "study/clinical.py": "ecbc5003d46a1ffaf4c233d36e2e940efbdb1176e7dfbb7f0e846815473787bf",
+    "study/core.py": "d2cb9e51089c3f977a4627ff79bbcb613b0eff256925c3cee4c87b8179cc2780",
+    "study/experiment.py": "d3e48818abe6e9833f0b3c22dfdabde4ac39c87cfef261844f6c672720c35ffd"
+  },
+  "wall_seconds": 52.27170612500049,
+  "peak_process_rss_bytes": 316424192,
+  "memory_scope": "whole-process high-water mark, not method isolated",
+  "limitations": [
+    "Real public de-identified BrEaST still frames; research evaluation only, no clinical validation or diagnosis.",
+    "Classical pixel/local-feature models only; no U-Net or pretrained segmenter evaluated.",
+    "One fixed patient split; metadata has no recoverable center linkage, so hospital-separated/external evaluation is unavailable here.",
+    "Square resize changes aspect ratio and resolution; physical boundary/area units account for native pixel size on each resized axis.",
+    "Label fractions count fully annotated training patients; validation patients remain fully labeled for all budgets.",
+    "Test repeats share patients; bootstrap first averages each patient across fits. Boundary failures remain infinite and are counted explicitly.",
+    "Selected pixel scores are uncalibrated foreground scores, not probabilities of malignancy.",
+    "External BUS-UCLM comparison is not run; annotation/acquisition compatibility and patient mapping must be verified first."
+  ]
+}

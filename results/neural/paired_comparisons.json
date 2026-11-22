@@ -1,0 +1,68 @@
+[
+  {
+    "reference": "unet_scratch",
+    "comparison": "unet_no_augmentation",
+    "label_fraction": 1,
+    "patients": 51,
+    "mean_paired_dice_difference": 0.006543718224363791,
+    "ci95": [
+      -0.015966431191313808,
+      0.03088790834216237
+    ]
+  },
+  {
+    "reference": "unet_scratch",
+    "comparison": "deeplab_scratch",
+    "label_fraction": 1,
+    "patients": 51,
+    "mean_paired_dice_difference": 0.2793997645410446,
+    "ci95": [
+      0.22269429885592865,
+      0.33682754226497724
+    ]
+  },
+  {
+    "reference": "unet_scratch",
+    "comparison": "deeplab_pretrained_frozen",
+    "label_fraction": 1,
+    "patients": 51,
+    "mean_paired_dice_difference": 0.15898383551929415,
+    "ci95": [
+      0.09756249195692114,
+      0.2253570743304663
+    ]
+  },
+  {
+    "reference": "unet_scratch",
+    "comparison": "deeplab_pretrained_finetune",
+    "label_fraction": 1,
+    "patients": 51,
+    "mean_paired_dice_difference": -0.02041207224384711,
+    "ci95": [
+      -0.06810003904281034,
+      0.027434178111117327
+    ]
+  },
+  {
+    "reference": "unet_scratch",
+    "comparison": "local_feature_forest",
+    "label_fraction": 1,
+    "patients": 51,
+    "mean_paired_dice_difference": 0.19983176930058721,
+    "ci95": [
+      0.1463527192319428,
+      0.25373717715278515
+    ]
+  },
+  {
+    "reference": "unet_scratch",
+    "comparison": "pixel_logistic",
+    "label_fraction": 1,
+    "patients": 51,
+    "mean_paired_dice_difference": 0.4592879661767485,
+    "ci95": [
+      0.40741438503198923,
+      0.5094425654240677
+    ]
+  }
+]

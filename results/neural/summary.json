@@ -1,0 +1,227 @@
+[
+  {
+    "method": "unet_scratch",
+    "label_fraction": 0.1,
+    "patient_mean": 0.45998723378063167,
+    "ci95": [
+      0.3920849854548544,
+      0.5324271464576585
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 8.811180042324743,
+    "empty_prediction_failures": 1,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 12.934083468280733,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "unet_no_augmentation",
+    "label_fraction": 0.1,
+    "patient_mean": 0.45868048701178343,
+    "ci95": [
+      0.3978102234288247,
+      0.5220679589197591
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 10.162678096986614,
+    "empty_prediction_failures": 0,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 12.113729142583907,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_scratch",
+    "label_fraction": 0.1,
+    "patient_mean": 0.11928278413692549,
+    "ci95": [
+      0.09285917000247453,
+      0.14813522475566385
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 28.104618625629904,
+    "empty_prediction_failures": 0,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 18.077917047776282,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_pretrained_frozen",
+    "label_fraction": 0.1,
+    "patient_mean": 0.35114467693322926,
+    "ci95": [
+      0.2623356304595723,
+      0.43811820884131325
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 6.79648706393378,
+    "empty_prediction_failures": 36,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 16.925646108575165,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_pretrained_finetune",
+    "label_fraction": 0.1,
+    "patient_mean": 0.5832033426596224,
+    "ci95": [
+      0.5195651734255708,
+      0.6435640961993654
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 4.858594596769185,
+    "empty_prediction_failures": 1,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 16.64531254209578,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "unet_scratch",
+    "label_fraction": 0.3,
+    "patient_mean": 0.5729749217607817,
+    "ci95": [
+      0.5094965055205406,
+      0.6326278865977096
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 7.701532461116605,
+    "empty_prediction_failures": 0,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 10.51810395438224,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "unet_no_augmentation",
+    "label_fraction": 0.3,
+    "patient_mean": 0.5554209513707341,
+    "ci95": [
+      0.49387311790065475,
+      0.6185344006864303
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 8.028848577231722,
+    "empty_prediction_failures": 0,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 11.015854077413678,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_scratch",
+    "label_fraction": 0.3,
+    "patient_mean": 0.4001674718582535,
+    "ci95": [
+      0.34674547038449083,
+      0.4544113045348823
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 7.81159042536926,
+    "empty_prediction_failures": 0,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 16.89283293671906,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_pretrained_frozen",
+    "label_fraction": 0.3,
+    "patient_mean": 0.45608376570368797,
+    "ci95": [
+      0.3717487603723589,
+      0.531942177876612
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 5.933355382031843,
+    "empty_prediction_failures": 13,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 16.94327045697719,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_pretrained_finetune",
+    "label_fraction": 0.3,
+    "patient_mean": 0.662832690977241,
+    "ci95": [
+      0.6084716040335749,
+      0.715107774397955
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 3.4924589282959904,
+    "empty_prediction_failures": 1,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 16.68562542181462,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "unet_scratch",
+    "label_fraction": 1.0,
+    "patient_mean": 0.6851181846620984,
+    "ci95": [
+      0.62210834054154,
+      0.7424962764514933
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 4.740673437500001,
+    "empty_prediction_failures": 0,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 12.090312549844384,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "unet_no_augmentation",
+    "label_fraction": 1.0,
+    "patient_mean": 0.6785744664377344,
+    "ci95": [
+      0.6088380582441064,
+      0.7427417269845608
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 4.402536081310311,
+    "empty_prediction_failures": 0,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 11.407895479351282,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_scratch",
+    "label_fraction": 1.0,
+    "patient_mean": 0.40571842012105375,
+    "ci95": [
+      0.3555769856431349,
+      0.45752115787027636
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 7.922722580762614,
+    "empty_prediction_failures": 0,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 17.20139605458826,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_pretrained_frozen",
+    "label_fraction": 1.0,
+    "patient_mean": 0.5261343491428042,
+    "ci95": [
+      0.4498456404177055,
+      0.6007725764176683
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 4.43289984064485,
+    "empty_prediction_failures": 11,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 16.64822897873819,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  },
+  {
+    "method": "deeplab_pretrained_finetune",
+    "label_fraction": 1.0,
+    "patient_mean": 0.7055302569059454,
+    "ci95": [
+      0.646232253903594,
+      0.75887389671685
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 2.5418279583152144,
+    "empty_prediction_failures": 2,
+    "fit_cases": 153,
+    "median_device_batch1_ms": 17.426604055799544,
+    "interval_scope": "patient bootstrap of per-patient means across fitting seeds; conditional on fixed cohort/split"
+  }
+]

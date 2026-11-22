@@ -1,0 +1,65 @@
+{
+  "status": "evaluated_public_medical_neural_pilot",
+  "config": {
+    "seed": 20261122,
+    "size": 128,
+    "batch_size": 4,
+    "max_epochs": 60,
+    "minimum_epochs": 20,
+    "patience": 10,
+    "learning_rate_unet": 0.001,
+    "learning_rate_deeplab": 0.0001,
+    "repeats": 3,
+    "label_fractions": [
+      0.1,
+      0.3,
+      1.0
+    ],
+    "methods": [
+      "unet_scratch",
+      "unet_no_augmentation",
+      "deeplab_scratch",
+      "deeplab_pretrained_frozen",
+      "deeplab_pretrained_finetune"
+    ]
+  },
+  "environment": {
+    "torch": "2.15.0",
+    "torchvision": "0.29.2",
+    "mps_built": true,
+    "mps_available": true,
+    "python": "3.12.14 (main, Aug 12 2026, 13:57:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.6.1-arm64-arm-64bit"
+  },
+  "device": "mps",
+  "source_sha256": {
+    "study/__init__.py": "bd6b023d1214abcf31ab9c8c232fb9fc666a9125026359fcffe8a18b7d803100",
+    "study/__main__.py": "8e0f5d9f4878626edd0ee92c0b622a30d99972bf82f387125efa7bb55514a838",
+    "study/clinical.py": "ecbc5003d46a1ffaf4c233d36e2e940efbdb1176e7dfbb7f0e846815473787bf",
+    "study/core.py": "d2cb9e51089c3f977a4627ff79bbcb613b0eff256925c3cee4c87b8179cc2780",
+    "study/experiment.py": "d3e48818abe6e9833f0b3c22dfdabde4ac39c87cfef261844f6c672720c35ffd",
+    "study/networks.py": "0253d8dd2f299dd2f095075f388e2e75d2329d226a21a8ff871e16eb593e59f7",
+    "study/neural.py": "260280a6e95be0e139514d9266cd1351e4250a792cbbf4c611bcfa39a3d15e4c"
+  },
+  "wall_seconds": 4119.289815540891,
+  "pretrained_weight_provenance": [
+    {
+      "filename": "deeplabv3_mobilenet_v3_large-fc3c493d.pth",
+      "sha256": "fc3c493d68e89cc31ef488c803d5d7dd2f3190fb570598faa49fef69be8e5e70",
+      "bytes": 44356159,
+      "source": "torchvision DeepLabV3_MobileNet_V3_Large_Weights.COCO_WITH_VOC_LABELS_V1; official PyTorch download",
+      "pretraining": "COCO subset with Pascal VOC label categories; not medical pretraining"
+    }
+  ],
+  "split_manifest": "results/pilot/data_manifest.json; same 153/51/52 patients and root seed",
+  "peak_process_rss_bytes": 903118848,
+  "limitations": [
+    "Research evaluation on one small public still-frame cohort, not clinical validation.",
+    "No external cohort or repeated patient split yet; test cases reused across fits.",
+    "Sampled MPS allocations are not instantaneous peak GPU memory; CPU RSS is whole-process high-water.",
+    "Models share patient/image/augmentation schedules but differ in pretraining, parameter count, optimization rate and actual compute.",
+    "DeepLab BatchNorm running statistics fixed for small batches; binary head replaced. 128px resize differs from original 520px weight recipe.",
+    "Deterministic algorithms requested with warnings; MPS may still have numerical/backend nondeterminism.",
+    "No native lesion-boundary annotator-disagreement study or acquisition-domain generalization established."
+  ]
+}

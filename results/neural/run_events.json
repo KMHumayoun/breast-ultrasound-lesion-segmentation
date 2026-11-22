@@ -1,0 +1,15 @@
+[
+  {
+    "run": "breast-ultrasound-lesion-segmentation/results/neural",
+    "event": "temporary process suspension for Safari troubleshooting",
+    "affected_method": "unet_no_augmentation",
+    "repeat": 0,
+    "label_fraction": 0.3,
+    "process_pid": 95682,
+    "observed_process_elapsed_before_stop": "00:04:35",
+    "observed_process_elapsed_after_continue": "00:05:58",
+    "duration_scope": "approximately 83 seconds from displayed process elapsed values, not a precise stopwatch measurement",
+    "status": "resumed",
+    "scientific_effect": "No data/config/weights manually changed. The affected fit and epoch wall times include suspension and must be flagged in timing comparisons; raw timings must remain unaltered."
+  }
+]

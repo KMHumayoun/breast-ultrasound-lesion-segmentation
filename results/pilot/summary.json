@@ -1,0 +1,212 @@
+[
+  {
+    "repeat": 0,
+    "label_fraction": 0.1,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.24117709422914246
+  },
+  {
+    "repeat": 0,
+    "label_fraction": 0.1,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.4478257605763974
+  },
+  {
+    "repeat": 0,
+    "label_fraction": 0.3,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.23101205537084887
+  },
+  {
+    "repeat": 0,
+    "label_fraction": 0.3,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.5007263555426357
+  },
+  {
+    "repeat": 0,
+    "label_fraction": 1.0,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.23041377648083522
+  },
+  {
+    "repeat": 0,
+    "label_fraction": 1.0,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.513690817321822
+  },
+  {
+    "repeat": 1,
+    "label_fraction": 0.1,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.23048474946843744
+  },
+  {
+    "repeat": 1,
+    "label_fraction": 0.1,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.4715267084796656
+  },
+  {
+    "repeat": 1,
+    "label_fraction": 0.3,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.23097774685956782
+  },
+  {
+    "repeat": 1,
+    "label_fraction": 0.3,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.5040070971371381
+  },
+  {
+    "repeat": 1,
+    "label_fraction": 1.0,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.23110618064224936
+  },
+  {
+    "repeat": 1,
+    "label_fraction": 1.0,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.5166314464816544
+  },
+  {
+    "repeat": 2,
+    "label_fraction": 0.1,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.22864440931685087
+  },
+  {
+    "repeat": 2,
+    "label_fraction": 0.1,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.49420903905022123
+  },
+  {
+    "repeat": 2,
+    "label_fraction": 0.3,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.23079242752978307
+  },
+  {
+    "repeat": 2,
+    "label_fraction": 0.3,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.5093132254706964
+  },
+  {
+    "repeat": 2,
+    "label_fraction": 1.0,
+    "method": "pixel_logistic",
+    "selected_threshold": 0.2,
+    "validation_dice": 0.2303572137234161
+  },
+  {
+    "repeat": 2,
+    "label_fraction": 1.0,
+    "method": "local_feature_forest",
+    "selected_threshold": 0.5,
+    "validation_dice": 0.5171729609879054
+  },
+  {
+    "label_fraction": 0.1,
+    "method": "pixel_logistic",
+    "patient_mean": 0.22568984020773922,
+    "ci95": [
+      0.18365390905561207,
+      0.27137166883006947
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 19.34645237218662,
+    "empty_prediction_failures": 0,
+    "boundary_failure_denominator": 153,
+    "ci_scope": "Patient bootstrap of per-patient means across three fits; fixed dataset/split, not clinical population or hospital uncertainty"
+  },
+  {
+    "label_fraction": 0.1,
+    "method": "local_feature_forest",
+    "patient_mean": 0.44054595145022907,
+    "ci95": [
+      0.383020333741614,
+      0.5017494757452567
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 8.967656451622304,
+    "empty_prediction_failures": 0,
+    "boundary_failure_denominator": 153,
+    "ci_scope": "Patient bootstrap of per-patient means across three fits; fixed dataset/split, not clinical population or hospital uncertainty"
+  },
+  {
+    "label_fraction": 0.3,
+    "method": "pixel_logistic",
+    "patient_mean": 0.22527354518803588,
+    "ci95": [
+      0.18353033313116787,
+      0.27082064621504254
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 18.87414773466226,
+    "empty_prediction_failures": 0,
+    "boundary_failure_denominator": 153,
+    "ci_scope": "Patient bootstrap of per-patient means across three fits; fixed dataset/split, not clinical population or hospital uncertainty"
+  },
+  {
+    "label_fraction": 0.3,
+    "method": "local_feature_forest",
+    "patient_mean": 0.47977153624418406,
+    "ci95": [
+      0.4243453510067675,
+      0.5415021965387591
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 7.324057429634175,
+    "empty_prediction_failures": 0,
+    "boundary_failure_denominator": 153,
+    "ci_scope": "Patient bootstrap of per-patient means across three fits; fixed dataset/split, not clinical population or hospital uncertainty"
+  },
+  {
+    "label_fraction": 1.0,
+    "method": "pixel_logistic",
+    "patient_mean": 0.2258302184853498,
+    "ci95": [
+      0.18397980696620486,
+      0.2717646970319202
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 18.91407726756815,
+    "empty_prediction_failures": 0,
+    "boundary_failure_denominator": 153,
+    "ci_scope": "Patient bootstrap of per-patient means across three fits; fixed dataset/split, not clinical population or hospital uncertainty"
+  },
+  {
+    "label_fraction": 1.0,
+    "method": "local_feature_forest",
+    "patient_mean": 0.4852864153615111,
+    "ci95": [
+      0.42752726522030415,
+      0.5466951315918187
+    ],
+    "patients": 51,
+    "median_finite_hd95_mm": 7.166493069698295,
+    "empty_prediction_failures": 0,
+    "boundary_failure_denominator": 153,
+    "ci_scope": "Patient bootstrap of per-patient means across three fits; fixed dataset/split, not clinical population or hospital uncertainty"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "environment": {
+    "torch": "2.15.0",
+    "torchvision": "0.29.2",
+    "mps_built": true,
+    "mps_available": true,
+    "python": "3.12.14 (main, Aug 12 2026, 13:57:54) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "platform": "macOS-26.6.1-arm64-arm-64bit"
+  },
+  "records": [
+    {
+      "model": "unet_scratch",
+      "device": "mps",
+      "mean_training_step_seconds": 0.03216438316740096,
+      "parameters": 487713,
+      "sampled_live_mps_bytes": 8340736,
+      "sampled_driver_mps_bytes": 1202700288
+    },
+    {
+      "model": "deeplab_pretrained_finetune",
+      "device": "mps",
+      "mean_training_step_seconds": 0.0729479833971709,
+      "parameters": 11020337,
+      "sampled_live_mps_bytes": 179397632,
+      "sampled_driver_mps_bytes": 400687104
+    }
+  ],
+  "scope": "generated-tensor compute probe only; no medical performance"
+}

@@ -1,0 +1,13 @@
+{
+  "scope": "Single-cohort breast-ultrasound segmentation comparison",
+  "executed_data": "BrEaST, 256 verified cases/patients",
+  "fixed_split": {"train": 153, "validation": 51, "test": 52},
+  "classical_fits_completed": 18,
+  "neural_fits_completed": 45,
+  "neural_patient_fit_observations": 2340,
+  "local_tests_passed": 9,
+  "physical_units": "Verified metadata-based resized-axis mm and mm^2",
+  "external_cohort": "not_evaluated",
+  "clinical_validation": "not_established",
+  "review_state": "Source, measurements, reproducible setup and figures prepared for review"
+}

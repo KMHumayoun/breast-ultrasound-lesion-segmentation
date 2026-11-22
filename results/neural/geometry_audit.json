@@ -1,0 +1,44 @@
+{
+  "status": "verified_metadata_based_physical_units",
+  "cases_checked": 256,
+  "source_article_doi": "10.1038/s41597-024-02984-z",
+  "primary_metadata_definition": "width and height of pixel in cm (Pixel_size)",
+  "article_xml_sha256": "2e96a32c1a39b2c91f3db0e07e34505f89cbc06d55ed8c06a7305dc955ba6c36",
+  "metadata_sha256": "89a8874496a6f1f93960390b963f7369b90f7e72ee08a738f2d17e37f5eff8bf",
+  "native_pixel_size_cm_range": [
+    0.004340278,
+    0.013888889
+  ],
+  "resized_spacing_mm_yx_min": [
+    0.11718749054687502,
+    0.295410165703125
+  ],
+  "resized_spacing_mm_yx_max": [
+    0.602213546484375,
+    0.695529519453125
+  ],
+  "target_shape": [
+    128,
+    128
+  ],
+  "formula": "spacing_mm_yx = native_shape_yx / resized_shape_yx * Pixel_size_cm * 10",
+  "boundary_units": "mm; distance_transform_edt sampling receives axis-specific resized spacing",
+  "area_units": "mm^2; absolute foreground-pixel count error times product of resized mm/pixel on both axes",
+  "example": {
+    "public_case_id": 1,
+    "native_shape_yx": [
+      537,
+      485
+    ],
+    "native_cm_per_pixel": 0.0078125,
+    "resized_mm_per_pixel_yx": [
+      0.3277587890625,
+      0.2960205078125
+    ]
+  },
+  "limits": [
+    "Geometry uses publisher-provided pixel size; it is not an independent physical calibration study.",
+    "Nearest-neighbor mask resizing discretizes boundaries; physical-unit accounting does not recover detail lost at 128x128.",
+    "Native pixel metadata is scalar, interpreted as equal native width/height as defined by the primary descriptor."
+  ]
+}
