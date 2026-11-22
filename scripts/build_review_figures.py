@@ -9,7 +9,7 @@ import torch
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from draw_architecture import diagrams
+from draw_architecture import EXAMPLE, diagrams
 from study.experiment import load_dataset,split_cases
 from study.networks import CompactUNet,BinaryDeepLab
 from study.neural import predict
@@ -35,6 +35,7 @@ def main():
  for path in ['results/neural/metrics.csv','results/neural/fits.json','results/neural/summary.json','results/pilot/data_manifest.json']:
   EVIDENCE['inputs'][path]=hashlib.sha256(Path(path).read_bytes()).hexdigest()
  diagrams()
+ EVIDENCE['inputs'][str(EXAMPLE)]=hashlib.sha256(EXAMPLE.read_bytes()).hexdigest()
  EVIDENCE['inputs']['scripts/draw_architecture.py']=hashlib.sha256(Path('scripts/draw_architecture.py').read_bytes()).hexdigest()
  fig,axes=plt.subplots(2,2,figsize=(12,8));split_groups=[('Train',train),('Validation',val),('Test',test)];pos=[];neg=[]
  for name,ids in split_groups:pos.append(sum(cases[i]['has_native_lesion'] for i in ids));neg.append(sum(not cases[i]['has_native_lesion'] for i in ids))

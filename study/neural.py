@@ -16,6 +16,7 @@ import torchvision
 from .networks import make_model,freeze_batch_statistics,segmentation_loss
 from .experiment import load_dataset,split_cases,scientific_json
 from .clinical import segmentation_metrics,patient_ci
+from .reporting import write_report
 from .core import panel, peak_memory_bytes
 
 
@@ -186,15 +187,7 @@ def run(cfg,out):
                             'Deterministic algorithms requested with warnings; MPS may still have numerical/backend nondeterminism.',
                             'No native lesion-boundary annotator-disagreement study or acquisition-domain generalization established.']}
     (out/'evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
-    lines=['# Neural breast-ultrasound segmentation pilot','', 'Status: executed research evaluation; full advanced study and clinical validation incomplete.', '',
-           '| Labeled patient fraction | Method | Patient Dice [95% CI] | Median finite HD95 mm | Empty outputs / fit-cases | Batch-1 ms |',
-           '|---|---|---:|---:|---:|---:|']
-    for s in summary:
-        lo,hi=s['ci95'];hd=s['median_finite_hd95_mm'];hdt=f'{hd:.2f}' if hd is not None else 'NA'
-        lines.append(f"| {s['label_fraction']:.0%} | {s['method']} | {s['patient_mean']:.3f} [{lo:.3f}, {hi:.3f}] | {hdt} | {s['empty_prediction_failures']} / {s['fit_cases']} | {s['median_device_batch1_ms']:.2f} |")
-    lines+=['','Intervals average each patient across fitting seeds before resampling patients. They condition on this fixed cohort/split. Boundary failures remain counted; finite HD95 must not be interpreted without its failure denominator.','',
-            '## Limitations','',*['- '+v for v in evidence['limitations']]]
-    (out/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_report(out, summary, neural=True)
     print(json.dumps({'completed_fits':len(fits),'rows':len(rows),'seconds':evidence['wall_seconds'],'output':str(out)}),flush=True)
 
 

@@ -75,7 +75,7 @@ python -m study.neural --config configs/neural.json --output results/my-neural-r
 
 ## Find your results
 
-Open `REPORT.md` in the output folder you chose. The table summarizes the models. The accompanying `metrics.csv` contains one row per test patient for each fitted model. The device check uses generated inputs to test PyTorch and does not train a model.
+Open `REPORT.md` in the output folder you chose. The table summarizes the models. The accompanying `metrics.csv` contains one row per test patient for each fitted model. The device check runs a few training steps on generated images to check that PyTorch works. The full study uses the BrEaST scans.
 
 The program checks the downloaded files before reading the scans. It keeps the data and model weights in `data/`. Use a different results folder for each new run. The fitted checkpoints in `data/neural-models/` use fixed names. Copy that folder before training again if you want to keep your previous weights.
 

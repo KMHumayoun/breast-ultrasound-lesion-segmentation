@@ -1,12 +1,13 @@
 {
   "status": "post-run descriptive figures; no training",
-  "source_script_sha256": "aeabfecda068cb46aefea2a53b960045acbf5ea10083fd8ed290a277b83e204e",
+  "source_script_sha256": "e820fd7f2505522d4f4f88c7efe2054ac10e16762ec6096e8103ff23777981f0",
   "inputs": {
     "results/neural/metrics.csv": "03d4f2abf8c34dd661c057aa54531e8be53d319b471926a67f648d4b5fcd5b1f",
     "results/neural/fits.json": "195ee573152dbe23e6289afdd0d1b232538c91ca4aaa093e50acfbe963e0f4ee",
     "results/neural/summary.json": "e6ad5f52c70b41422fb93cf0ca4d7a9bc3e0fcb02e6f049934ba6b650396a54e",
     "results/pilot/data_manifest.json": "4d3e20fd358626942ef66b16954df763192b6d2adb58bf4997777a047c37b2d4",
-    "scripts/draw_architecture.py": "7cc4a8623c1e2968c62a2b53643e6158300dbff746df7f30b09672c0566e77b9"
+    "results/neural/deeplab_pretrained_finetune_fixed_case.png": "0cbe6b95e9014f6260579165ea3fc6793b20b636fe4a081fef10acc2975e56ac",
+    "scripts/draw_architecture.py": "e9dfa549f45038a032e4b76b42ee4caafe6047e24d0a6fbd67a7f92036719df1"
   },
   "checkpoint_replay": [
     {

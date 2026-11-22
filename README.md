@@ -27,6 +27,8 @@ The timing panel measures the model on one image already in memory. The reports 
 
 ![System architecture from ultrasound scans through patient split, model fitting and independent testing](figures/system_architecture.png)
 
+Across the top, the bright parts of the score map show where DeepLab predicts a lesion. Applying the validation cutoff produces the white mask on the right. The scan comes from [BrEaST](DATA.md).
+
 Each patient appears in one group. Training patients supply examples. Validation patients help select the model checkpoint and the cutoff for turning its output into a mask. Test patients supply the final comparison with the expert.
 
 ## How the models make a mask

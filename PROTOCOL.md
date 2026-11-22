@@ -24,9 +24,8 @@ Primary: lesion-positive test Dice, averaging each patient over fitting seeds be
 
 The post-run full-label paired comparison resamples differences between per-patient mean scores (10,000 draws). It conditions on one fixed cohort/split. Fitting seeds, images and pixels are not interchangeable units of independence.
 
-## Known limits and recorded event
+## Limits of the comparison
 
 DeepLab normalization state, learning rate and parameter count differ across references; the comparison does not isolate a causal pretraining effect. MPS memory is sampled allocation, not a guaranteed peak, and process RSS is a whole-process high-water mark. Device-forward latency excludes data preparation and transfer.
-
 
 Independent patient splits, external cohorts, annotation disagreement and acquisition-specific robustness are beyond this executed comparison. Their absence does not prevent reproducing the reported single-cohort experiment, but it limits generalization claims.

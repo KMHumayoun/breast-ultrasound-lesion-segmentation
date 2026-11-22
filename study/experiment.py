@@ -18,6 +18,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from .clinical import segmentation_metrics,patient_ci,audit_groups
+from .reporting import write_report
 from .core import panel,write_run
 
 IMAGE_URL='https://www.cancerimagingarchive.net/wp-content/uploads/BrEaST-Lesions_USG-images_and_masks-Dec-15-2023.zip'
@@ -175,17 +176,4 @@ def run(cfg,out):
                                 'Test repeats share patients; bootstrap first averages each patient across fits. Boundary failures remain infinite and are counted explicitly.',
                                 'Selected pixel scores are uncalibrated foreground scores, not probabilities of malignancy.',
                                 'External BUS-UCLM comparison is not run; annotation/acquisition compatibility and patient mapping must be verified first.'],status='evaluated_public_medical_baseline_pilot')
-    # Replace the long observation table with a focused summary while preserving every observation in CSV.
-    lines=['# BrEaST classical segmentation pilot','',
-           'Status: evaluated on a real public medical dataset; advanced study and clinical validation incomplete.','',
-           f'All 256 cases passed archive/schema checks. Patient split: {len(train)} training, {len(validation)} validation, {len(test)} test. Primary results use lesion-positive test patients only; normal-case false alarms remain in raw metrics.','',
-           '| Labeled train fraction | Method | Mean patient Dice [95% bootstrap CI] | Median finite HD95 mm | Empty-output failures / fit-cases |',
-           '|---|---|---:|---:|---:|']
-    for s in summaries:
-        if 'patient_mean' not in s:continue
-        lo,hi=s['ci95'];hd=s['median_finite_hd95_mm']
-        lines.append(f"| {s['label_fraction']:.0%} | {s['method']} | {s['patient_mean']:.3f} [{lo:.3f}, {hi:.3f}] | {hd if hd is not None else 'NA'} | {s['empty_prediction_failures']} / {s['boundary_failure_denominator']} |")
-    lines+=['','The bootstrap conditions on this fixed cohort/split and averages each patient across training repeats. It does not establish hospital or clinical-population generalization. Finite HD95 medians exclude failed empty outputs only while reporting their count; they must not be read alone.',
-            '', 'See metrics.csv for every patient/fit, summary.json for validation selections/interval definitions, data_manifest.json for hashes/grouping, and evidence.json for actual runtime/source versions.',
-            '', '## Limits','',*['- '+v for v in json.loads((out/'evidence.json').read_text())['limitations']]]
-    (out/'REPORT.md').write_text('\n'.join(lines)+'\n')
+    write_report(out, summaries, neural=False)
